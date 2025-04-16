@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, send_file
+from flask import Flask, request, jsonify, send_file, render_template, send_from_directory
 from flask_cors import CORS
 import requests
 import os
@@ -10,7 +10,7 @@ from spotipy.oauth2 import SpotifyClientCredentials
 # Загрузка переменных окружения
 load_dotenv()
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='dist', static_url_path='')
 CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Конфигурация API
@@ -40,7 +40,11 @@ def download_track(url, save_path):
     except Exception as e:
         print(f"Произошла ошибка: {e}")
         return False
-
+        
+@app.route("/")
+def index():
+    return send_from_directory(app.static_folder, 'index.html')
+    
 @app.route('/search', methods=['GET'])
 def search_tracks():
     try:
