@@ -25,7 +25,8 @@ sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(
     client_id=os.getenv("SPOTIFY_CLIENT_ID"),
     client_secret=os.getenv("SPOTIFY_CLIENT_SECRET")
 ))
-
+print(client_id, client_secret)
+print(headers)
 def download_track(url, save_path):
     try:
         response = requests.get(url, stream=True)
