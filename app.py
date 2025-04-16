@@ -48,7 +48,7 @@ def download_track(url, save_path):
 def index():
     return send_from_directory(app.static_folder, 'index.html')
     
-@app.route('/search', methods=['GET'])
+@app.route('/api/search', methods=['GET'])
 def search_tracks():
     try:
         query = request.args.get('q')
@@ -86,7 +86,7 @@ def search_tracks():
         print(f"Произошла ошибка: {str(e)}")
         return jsonify({"error": str(e)}), 500
 
-@app.route('/download', methods=['POST'])
+@app.route('/api/download', methods=['POST'])
 def download_spotify_track():
     try:
         data = request.json
